@@ -1,0 +1,23 @@
+neutral playlist1-https://music.youtube.com/playlist?list=PLpZgDvLZI37uk_tjHNIsoRHSbNaP0mwu-&si=WELMDxrLGjF0-F1g
+neutral playlist2-https://music.youtube.com/playlist?list=PLpZgDvLZI37vM0Zg2L6_JZ94LhXzl5Bd3&si=vEzZc-E5X2FLTpJO
+neutral playlist3-https://music.youtube.com/playlist?list=PLpZgDvLZI37uNGP60aBFQohdjBWTbJhAW&si=PO_a6bCyysE04GwG
+happy playlist1-https://music.youtube.com/playlist?list=PLpZgDvLZI37uMhId3l6FVXuntPja1N_KQ&si=iVjml2KfmYvgqqwq
+happy playlist2-https://music.youtube.com/playlist?list=PLpZgDvLZI37sqOmvkrKqKJRyPNAzoyQLA&si=gSzhIXETK2W-E6OD
+happy playlist3-https://music.youtube.com/playlist?list=PLpZgDvLZI37txkKa7jSH-8eMdOrGpOZMa&si=L5CgIxFvriv5gDgc
+sad playlist1-https://music.youtube.com/playlist?list=PLpZgDvLZI37tmIr1QSaGDnByR2_yWHvtk&si=sdRRwJL-fzzRliZP
+sad playlist2-https://music.youtube.com/playlist?list=PLpZgDvLZI37vsycG1M3vAa8yqAa1Ay_Qv&si=kAYLMJAPWP_YI87L
+sad playlist3-https://music.youtube.com/playlist?list=PLpZgDvLZI37vQ_pknSe2gV_QTFjKXajQt&si=wvHkyvfBgpjSer91
+angry playlist1-https://music.youtube.com/playlist?list=PLpZgDvLZI37vDTyudI5pM1f5JFxJAGgyA&si=i56vtAOAKDbRpaOg
+angry playlist2-https://music.youtube.com/playlist?list=PLpZgDvLZI37sftv_tr6hBBtDTiV4Dd1M3&si=nKkrIvBc1Edd67sJ
+angry playlist3-https://music.youtube.com/playlist?list=PLpZgDvLZI37uCZajoDTg5Q22TgNN9vq0F&si=4CjaUmQHsGCjgtOS
+fearful playlist1-https://music.youtube.com/playlist?list=PLpZgDvLZI37ukU5rbvmSjI009eQMJ3ybZ&si=bAZUgqzpj3Nj7-ei
+fearful playlist2-https://music.youtube.com/playlist?list=PLpZgDvLZI37tH0nuko2Mq2t3-RrX7wtLJ&si=fXO7ug15IgTLodXD
+fearful playlist3-https://music.youtube.com/playlist?list=PLpZgDvLZI37uPMlFzqGkp0VHW-vK0NycK&si=bjLoyaSmIMCUh144
+surprised playlist1-https://music.youtube.com/playlist?list=PLpZgDvLZI37tb8Da4kMiWIqEnOv4L9fFe&si=H30KtlX0OyiuG7Tt
+surprised playlist2-https://music.youtube.com/playlist?list=PLpZgDvLZI37swfNhL4zwF_LxqQ-ewV942&si=Sgx2Q6Usiiub6NF0
+surprised playlist3-https://music.youtube.com/playlist?list=PLpZgDvLZI37vgMHyy5uI5BZys_JBcR8WS&si=VoJVWJKExia6BZ7F
+
+
+
+
+

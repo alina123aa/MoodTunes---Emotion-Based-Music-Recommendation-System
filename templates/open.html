@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodTunes - Music Recommendations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to bottom, #000000, #121212);
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #E50914;
+        }
+        
+        .login-button {
+            background-color: #E50914;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .login-button:hover {
+            background-color: #F40612;
+            transform: scale(1.05);
+        }
+        
+        .container {
+            padding: 20px 40px;
+        }
+        
+        .row-title {
+            margin: 30px 0 15px;
+            font-size: 24px;
+            font-weight: 500;
+        }
+        
+        .scroll-row {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 30px;
+            height: 200px;
+        }
+        
+        .scroll-content {
+            display: flex;
+            position: absolute;
+            animation-duration: 60s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            height: 100%;
+        }
+        
+        .row-left-to-right .scroll-content {
+            animation-name: scrollLeft;
+        }
+        
+        .row-right-to-left .scroll-content {
+            animation-name: scrollRight;
+            right: 0;
+        }
+        
+        .music-item {
+            flex: 0 0 auto;
+            width: 150px;
+            height: 200px;
+            margin-right: 15px;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .music-item:hover {
+            transform: scale(1.1);
+            z-index: 10;
+            box-shadow: 0 10px 20px rgba(229, 9, 20, 0.3);
+        }
+        
+        .music-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .music-item-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            padding: 15px 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .music-item:hover .music-item-info {
+            opacity: 1;
+        }
+        
+        .music-item-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .music-item-artist {
+            font-size: 12px;
+            color: #cccccc;
+        }
+        
+        @keyframes scrollLeft {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-150px * 38 - 15px * 38));
+            }
+        }
+        
+        @keyframes scrollRight {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(150px * 38 + 15px * 38));
+            }
+        }
+        
+        .mood-header {
+            background: linear-gradient(to right, #E50914, #121212);
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .mood-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        footer {
+            background-color: #000000;
+            padding: 20px 40px;
+            text-align: center;
+            margin-top: 30px;
+            color: #757575;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🎵 MoodTunes</div>
+       <button class="login-button" onclick="window.location.href='/login'">Log In</button>
+    </header>
+    
+    <!-- Hidden audio element for background music -->
+    <audio id="backgroundMusic" loop>
+    <source src="/static/audio/open.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+
+    
+    <div class="container">
+        <div class="mood-header">
+            <div class="mood-icon"></div>
+            <h2>Happy Mood Recommendations</h2>
+        </div>
+        
+        <!-- Row 1: Left to Right -->
+        <h3 class="row-title">Energetic Beats</h3>
+        <div class="scroll-row row-left-to-right">
+            <div class="scroll-content">
+                <!-- Duplicate the images to create an infinite scroll effect -->
+          <script>
+    for (let i = 1; i <= 38; i++) {
+        document.write(`
+            <div class="music-item">
+                <img src="/static/images/im${i}.jpg" alt="Music ${i}">
+                <div class="music-item-info">
+                    <div class="music-item-title">Artist ${i}</div>
+                </div>
+            </div>
+        `);
+    }
+</script>
+
+            </div>
+        </div>
+        
+        <div class="mood-header">
+            <div class="mood-icon"></div>
+            <h2>Neutral Mood Recommendations</h2>
+        </div>
+        
+        <!-- Row 2: Right to Left -->
+        <h3 class="row-title">Relaxing Melodies</h3>
+        <div class="scroll-row row-right-to-left">
+            <div class="scroll-content">
+                <script>
+                    // Create first set of images
+                    for (let i = 39; i <= 76; i++) {
+                        document.write(`
+                            <div class="music-item">
+                                <img src="/static/images/im${i}.jpg" alt="Music ${i}">
+                                <div class="music-item-info">
+                                    <div class="music-item-title">Artist ${i}</div>
+                                   
+                                </div>
+                            </div>
+                        `);
+                    }
+                    
+                    // Duplicate the images for seamless scrolling
+                    for (let i = 39; i <= 76; i++) {
+                        document.write(`
+                            <div class="music-item">
+                                <img src="/static/images/im${i}.jpg" alt="Music ${i}">
+                                <div class="music-item-info">
+                                    <div class="music-item-title">Artist ${i}</div>
+                                    
+                                </div>
+                            </div>
+                        `);
+                    }
+                </script>
+            </div>
+        </div>
+        
+        <div class="mood-header">
+            <div class="mood-icon"></div>
+            <h2>Sad Mood Recommendations</h2>
+        </div>
+        
+        <!-- Row 3: Left to Right -->
+        <h3 class="row-title">Soulful Tunes</h3>
+        <div class="scroll-row row-left-to-right">
+            <div class="scroll-content">
+                <script>
+                    // Mix images from both sets
+                    for (let i = 1; i <= 76; i += 2) {
+                        document.write(`
+                            <div class="music-item">
+                                <img src="/static/images/im${i}.jpg" alt="Music ${i}">
+                                <div class="music-item-info">
+                                    <div class="music-item-title">Artist ${i}</div>
+                                                                    </div>
+                            </div>
+                        `);
+                    }
+                    
+                    // Duplicate for seamless scrolling
+                    for (let i = 1; i <= 76; i += 2) {
+                        document.write(`
+                            <div class="music-item">
+                                <img src="/static/images/im${i}.jpg" alt="Music ${i}">
+                                <div class="music-item-info">
+                                    <div class="music-item-title">Artist ${i}</div>
+                                    
+                                </div>
+                            </div>
+                        `);
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        &copy; 2025 MoodTunes - Emotion-Based Music Recommendations
+    </footer>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var music = document.getElementById('backgroundMusic');
+
+        // Add an event listener for user interaction
+        document.body.addEventListener('click', function () {
+            if (music.paused) {
+                music.play().then(() => {
+                    console.log("Music started after user interaction");
+                }).catch(error => {
+                    console.log("Error playing music:", error);
+                });
+            }
+        });
+    });
+
+   </script>
+</body>
+</html>

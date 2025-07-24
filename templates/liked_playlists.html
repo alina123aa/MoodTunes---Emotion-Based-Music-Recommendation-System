@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liked Playlists</title>
+    <style>
+        :root {
+            --primary: #1DB954;
+            --primary-dark: #1AA34A;
+            --secondary: #191414;
+            --text: #FFFFFF;
+            --background: #121212;
+            --card: #282828;
+            --card-hover: #3E3E3E;
+            --danger: #E3304E;
+            --danger-hover: #C62B44;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        .app-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        header {
+            margin-bottom: 30px;
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        h1 {
+            color: var(--text);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .back-button {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            color: var(--text);
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: color 0.2s;
+            padding: 8px;
+        }
+        
+        .back-button:hover {
+            color: var(--primary);
+        }
+        
+        .playlist-container {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 25px;
+            width: 100%;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            margin-bottom: 25px;
+            min-height: 200px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #b3b3b3;
+        }
+        
+        .empty-state p {
+            margin-top: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .playlist-link {
+            display: flex;
+            align-items: center;
+            background: var(--card-hover);
+            color: var(--text);
+            padding: 16px 20px;
+            margin: 12px 0;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .playlist-link:hover {
+            transform: translateY(-2px);
+            background: var(--card-hover);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .playlist-link:active {
+            transform: translateY(0);
+        }
+        
+        .playlist-icon {
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .playlist-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .playlist-link::after {
+            content: "→";
+            position: absolute;
+            right: 20px;
+            opacity: 0;
+            transition: all 0.2s ease;
+        }
+        
+        .playlist-link:hover::after {
+            opacity: 1;
+            right: 15px;
+        }
+        
+        .clear-button {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        .clear-button:hover {
+            background: var(--danger-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(227, 48, 78, 0.3);
+        }
+        
+        .clear-button:active {
+            transform: translateY(0);
+        }
+        
+        .button-icon {
+            margin-right: 8px;
+        }
+        
+        .heart-icon {
+            color: var(--primary);
+            margin-right: 10px;
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .playlist-container {
+                padding: 15px;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .playlist-link {
+            animation: fadeIn 0.3s ease forwards;
+            opacity: 0;
+        }
+        
+        .playlist-link:nth-child(1) { animation-delay: 0.1s; }
+        .playlist-link:nth-child(2) { animation-delay: 0.2s; }
+        .playlist-link:nth-child(3) { animation-delay: 0.3s; }
+        .playlist-link:nth-child(4) { animation-delay: 0.4s; }
+        .playlist-link:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <button class="back-button" onclick="goBack()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <h1><span class="heart-icon">❤️</span>Liked Playlists</h1>
+        </header>
+        
+        <div class="playlist-container" id="likedPlaylists"></div>
+        
+        <button class="clear-button" onclick="clearLikedPlaylists()">
+            <span class="button-icon">🗑️</span>Clear All Playlists
+        </button>
+    </div>
+
+ 
+
+<script>
+    // Fetch and render playlists when page loads
+    fetch('/get-liked-playlists')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("API Response:", data);
+            
+            if (!data || !data.status || data.status === 'error') {
+                console.error("API Error:", data.error || 'Unknown error');
+                throw new Error(data.error || 'Failed to fetch playlists');
+            }
+            
+            renderPlaylists(data.liked_playlists);
+        })
+        .catch(error => {
+            console.error("Error fetching liked playlists:", error);
+            renderPlaylists([]); // Show empty state on error
+        });
+
+    function renderPlaylists(likedPlaylists) {
+        let container = document.getElementById("likedPlaylists");
+        container.innerHTML = '';
+
+        if (!likedPlaylists || !Array.isArray(likedPlaylists) || likedPlaylists.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 18V5L21 3V16" stroke="#b3b3b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="6" cy="18" r="3" stroke="#b3b3b3" stroke-width="2"/>
+                        <circle cx="18" cy="16" r="3" stroke="#b3b3b3" stroke-width="2"/>
+                    </svg>
+                    <p>No liked playlists yet</p>
+                </div>
+            `;
+            return;
+        }
+
+        likedPlaylists.forEach((url, index) => {
+            let link = document.createElement("a");
+            link.href = url;
+            link.target = "_blank";
+            link.className = "playlist-link";
+            link.style.animationDelay = `${0.1 * (index + 1)}s`;
+
+            // Extract playlist name from URL if possible
+            let playlistName = `Playlist ${index + 1}`;
+            try {
+                const urlObj = new URL(url);
+                const listParam = urlObj.searchParams.get('list');
+                if (listParam) {
+                    playlistName = `YouTube Playlist ${listParam.slice(0, 8)}...`;
+                }
+            } catch (e) {
+                console.warn("Could not parse URL:", e);
+            }
+
+            link.innerHTML = `
+                <div class="playlist-icon">🎵</div>
+                <div class="playlist-title">${playlistName}</div>
+            `;
+
+            container.appendChild(link);
+        });
+    }
+
+    function clearLikedPlaylists() {
+        let container = document.getElementById("likedPlaylists");
+        if (!container.innerHTML.includes("playlist-link")) {
+            alert("No liked playlists to clear!");
+            return;
+        }
+
+        if (confirm("Are you sure you want to clear all liked playlists?")) {
+            fetch('/clear-liked-playlists', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                }
+                // Refresh the playlists display
+                location.reload();
+            })
+            .catch(error => {
+                console.error("Error clearing playlists:", error);
+                alert("Failed to clear playlists. Please try again.");
+            });
+        }
+    }
+
+    function goBack() {
+        history.back();
+    }
+</script>
+</body>
+</html>
